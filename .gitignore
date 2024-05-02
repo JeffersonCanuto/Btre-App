@@ -1,0 +1,6 @@
+# Files ignored by GIT
+.venv
+__pycache__/
+db.sqlite3
+/media
+/static
