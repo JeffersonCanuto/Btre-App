@@ -6,12 +6,15 @@ from django.contrib.auth.models import User
 def register(request):
     if request.method == 'POST':
         # Get form values
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
-        password2 = request.POST['password2']
+        try:
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+            username = request.POST['username']
+            email = request.POST['email']
+            password = request.POST['password']
+            password2 = request.POST['password2']
+        except Exception as e:
+            print(e)
 
         # Check whether passwords match
         if password == password2:
@@ -41,8 +44,26 @@ def register(request):
 
 def login(request):
     if request.method == 'POST':
-        # Register User
-        print("Login User!")
+        try:
+            # Get username and password values
+            username = request.POST['username']
+            password = request.POST['password']
+        except Exception as e:
+            print(e)
+
+        try:
+            # Authenticate using username and password credentials
+            user = auth.authenticate(username=username, password=password)
+        except Exception as e:
+            print(e)
+        
+        if user is not None:
+            auth.login(request, user)
+            messages.success(request, 'You are now logged in!')
+            return redirect('dashboard')
+        else:
+            messages.error(request, 'Invalid credentials!')
+            return redirect('login')
     
     return render(request, 'accounts/login.html')
 
