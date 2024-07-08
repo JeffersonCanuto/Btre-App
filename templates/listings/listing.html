@@ -38,6 +38,8 @@
 <!-- Listing -->
 <section id="listing" class="py-4">
     <div class="container">
+        <!-- Alerts -->
+        {% include 'partials/_alerts.html' %}
         <a href="{% url 'listings' %}" class="btn btn-light mb-4">Back To Listings</a>
         <div class="row">
             <div class="col-md-9">
@@ -179,10 +181,9 @@
                         <label for="property_name" class="col-form-label">Property:</label>
                         <input 
                             type="text" 
-                            name="listing" 
+                            name="listing"
                             class="form-control" 
-                            value="{{ listing.title }}" 
-                            disabled
+                            value="{{ listing.title }}"
                         >
                     </div>
                     <div class="form-group">
